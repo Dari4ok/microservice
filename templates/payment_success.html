@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script defer src="/static/script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Successful</h1>
+        <p class="amount">Thank you! Your payment has been processed.</p>
+
+        <div class="receipt">
+            <p><strong>Order ID:</strong> {{ order_id }}</p>
+            <p><strong>Payment ID:</strong> {{ payment_id }}</p>
+            <p><strong>Amount Paid:</strong> ${{ amount }}</p>
+            <p><strong>Status:</strong> {{ status }}</p>
+        </div>
+
+        <button onclick="printReceipt()">Print Receipt</button>
+        <a href="/">Return to Home</a>
+    </div>
+</body>
+</html>
