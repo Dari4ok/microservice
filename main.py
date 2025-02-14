@@ -30,10 +30,8 @@ def process_payment(
     expiry: str = Form(...),
     cvv: str = Form(...)
 ):
-    payment_id = str(ObjectId())
     
     payment_data = {
-        "_id": ObjectId(payment_id),
         "order_id": order_id,
         "amount": amount,
         "status": True  
@@ -41,12 +39,11 @@ def process_payment(
     payments.insert_one(payment_data)
     
     requests.post(MAIN_SERVER_URL, json={   
-        "payment_id": payment_id,
         "order_id": order_id,
         "status": True
     })
     
-    return RedirectResponse(url=f"/success/{payment_id}", status_code=303)
+    return RedirectResponse(url=f"/success/{order_id}", status_code=303)
 
 @app.get("/success/{payment_id}")
 def payment_success(request: Request, payment_id: str):
@@ -63,7 +60,6 @@ def payment_success(request: Request, payment_id: str):
         {
             "request": request,
             "order_id": payment["order_id"],
-            "payment_id": payment_id,
             "amount": payment.get("amount", "Unknown"),
             "status": payment["status"],
         }
